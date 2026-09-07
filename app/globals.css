@@ -1,0 +1,812 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Copilot Font Faces ────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Ginto";
+  src: url("/fonts/Ginto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GintoNord";
+  src: url("/fonts/GintoNord-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CascadiaCode";
+  src: url("/fonts/CascadiaCode-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Georgia Pro";
+  src: url("/fonts/GeorgiaPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Georgia Pro";
+  src: url("/fonts/GeorgiaPro-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────────── */
+@layer base {
+  /* ── Light theme (default and only application theme) ── */
+  :root,
+  .light,
+  .dark {
+    color-scheme: light;
+
+    /* Core */
+    --background: #f5f5f5;
+    --foreground: #111111;
+
+    /* Card / Surface */
+    --surface: #ffffff;
+    --surface-foreground: #111111;
+
+    /* Popover */
+    --popover: #ffffff;
+    --popover-foreground: #111111;
+
+    /* Primary / Accent */
+    --primary: #b42318;
+    --primary-foreground: #ffffff;
+
+    /* Secondary */
+    --secondary: #e4e4e4;
+    --secondary-foreground: #111111;
+
+    /* Muted */
+    --muted: #f3f4f6;
+    --muted-foreground: #4b5563;
+
+    /* Accent */
+    --accent: #b42318;
+    --accent-foreground: #ffffff;
+
+    /* Destructive */
+    --destructive: #b91c1c;
+    --destructive-foreground: #ffffff;
+
+    /* Status */
+    --success: #15803d;
+    --success-foreground: #ffffff;
+    --warning: #b45309;
+    --warning-foreground: #ffffff;
+    --info: #1d4ed8;
+    --info-foreground: #ffffff;
+
+    /* Border & Input */
+    --border: #d1d5db;
+    --input: #ffffff;
+    --ring: #b42318;
+
+    /* Radius */
+    --radius: 8px;
+
+    /* Sidebar */
+    --sidebar-background: #ffffff;
+    --sidebar-foreground: #111111;
+    --sidebar-primary: #b42318;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #f3f4f6;
+    --sidebar-accent-foreground: #111111;
+    --sidebar-border: #d1d5db;
+    --sidebar-ring: #b42318;
+  }
+
+  /* ── Light theme ── */
+  .light {
+    color-scheme: light;
+
+    /* Core */
+    --background: #f5f5f5;
+    --foreground: #111111;
+
+    /* Card / Surface */
+    --surface: #ffffff;
+    --surface-foreground: #111111;
+
+    /* Popover */
+    --popover: #ffffff;
+    --popover-foreground: #111111;
+
+    /* Primary / Accent */
+    --primary: #d4544a;
+    --primary-foreground: #ffffff;
+
+    /* Secondary */
+    --secondary: #e4e4e4;
+    --secondary-foreground: #111111;
+
+    /* Muted */
+    --muted: #6b7280;
+    --muted-foreground: #6b7280;
+
+    /* Accent */
+    --accent: #d4544a;
+    --accent-foreground: #ffffff;
+
+    /* Destructive */
+    --destructive: #b91c1c;
+    --destructive-foreground: #ffffff;
+
+    /* Status */
+    --success: #15803d;
+    --success-foreground: #ffffff;
+    --warning: #b45309;
+    --warning-foreground: #ffffff;
+    --info: #1d4ed8;
+    --info-foreground: #ffffff;
+
+    /* Border & Input */
+    --border: #d1d5db;
+    --input: #ffffff;
+    --ring: #d4544a;
+
+    /* Radius */
+    --radius: 8px;
+
+    /* Sidebar */
+    --sidebar-background: #ffffff;
+    --sidebar-foreground: #111111;
+    --sidebar-primary: #d4544a;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #f3f4f6;
+    --sidebar-accent-foreground: #111111;
+    --sidebar-border: #d1d5db;
+    --sidebar-ring: #d4544a;
+  }
+}
+
+/* ─── Base Styles ──────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Ginto", system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  /* Headings use GintoNord for the project-wide Ginto hierarchy. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "GintoNord", "Ginto", system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  h1 { font-size: 2rem; }    /* 28px at 14px base */
+  h2 { font-size: 1.5rem; }  /* 21px */
+  h3 { font-size: 1.25rem; } /* 17.5px */
+  h4 { font-size: 1.125rem; }/* 15.75px */
+  h5 { font-size: 1rem; }    /* 14px */
+  h6 { font-size: 0.875rem; }/* 12.25px */
+
+  code, pre {
+    font-family: "CascadiaCode", ui-monospace, monospace;
+    font-size: 14px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+/* ─── Copilot Component Patterns ───────────────────────────────────────────── */
+@layer components {
+  /* Card */
+  .copilot-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  /* Buttons */
+  .copilot-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: "GintoNord", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+    min-height: 40px;
+  }
+  .copilot-btn-primary:hover { opacity: 0.9; }
+  .copilot-btn-primary:active { opacity: 0.8; }
+  .copilot-btn-primary:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .copilot-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .copilot-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: "GintoNord", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease;
+    min-height: 40px;
+  }
+  .copilot-btn-ghost:hover { background: var(--secondary); }
+  .copilot-btn-ghost:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  /* Input */
+  .copilot-input {
+    width: 100%;
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--foreground);
+    font-family: "GintoNord", sans-serif;
+    font-size: 14px;
+    transition: border-color 150ms ease;
+    min-height: 40px;
+  }
+  .copilot-input::placeholder { color: var(--muted-foreground); }
+  .copilot-input:focus {
+    border-color: var(--ring);
+    outline: none;
+  }
+
+  /* Badge / Chip */
+  .copilot-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: "GintoNord", sans-serif;
+    background: var(--surface);
+    color: var(--muted-foreground);
+    border: 1px solid var(--border);
+  }
+  .copilot-badge-accent {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border-color: transparent;
+  }
+  .copilot-badge-warning {
+    background: var(--warning);
+    color: var(--warning-foreground);
+    border-color: transparent;
+  }
+  .copilot-badge-danger {
+    background: #ac1922;
+    color: var(--primary-foreground);
+    border-color: transparent;
+  }
+  .copilot-badge-success {
+    background: var(--success);
+    color: var(--success-foreground);
+    border-color: transparent;
+  }
+
+  /* Table */
+  .copilot-table { width: 100%; border-collapse: collapse; font-family: "GintoNord", sans-serif; }
+  .copilot-table th {
+    text-align: left;
+    padding: 8px 12px;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .copilot-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--foreground);
+  }
+  .copilot-table tr:last-child td { border-bottom: none; }
+
+  /* Navigation */
+  .copilot-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .copilot-nav-link {
+    color: var(--muted-foreground);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: color 150ms ease;
+  }
+  .copilot-nav-link:hover { color: var(--foreground); }
+  .copilot-nav-link.active { color: var(--primary); }
+
+  /* Stats card */
+  .copilot-stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .copilot-stat-label {
+    font-family: "GintoNord", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .copilot-stat-value {
+    font-family: "GintoNord", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--foreground);
+    line-height: 1.2;
+    margin-top: 5px;
+  }
+
+  /* Modal / Dialog */
+  .copilot-modal-backdrop { background: rgba(0, 0, 0, 0.6); }
+  .copilot-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: inherit;
+    padding: 24px;
+    max-width: 480px;
+    width: 90vw;
+  }
+
+  /* Form */
+  .copilot-form-group { margin-bottom: 16px; }
+  .copilot-label {
+    display: block;
+    font-family: "GintoNord", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    margin-bottom: 5px;
+  }
+  .copilot-error { color: var(--destructive); font-size: 12px; margin-top: 5px; }
+
+  /* Scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 3px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background-color: var(--foreground); }
+}
+
+/* ─── Utility overrides ────────────────────────────────────────────────────── */
+@layer utilities {
+  .font-heading { font-family: "GintoNord", sans-serif; }
+  .font-body { font-family: "GintoNord", sans-serif; }
+  .font-mono { font-family: "CascadiaCode", monospace; }
+
+  /* Spacing utilities (4px grid) */
+  .space-y-copilot > * + * { margin-top: 16px; }
+  .space-x-copilot > * + * { margin-left: 16px; }
+  .gap-copilot { gap: 16px; }
+  .p-copilot { padding: 16px; }
+  .px-copilot { padding-left: 16px; padding-right: 16px; }
+  .py-copilot { padding-top: 16px; padding-bottom: 16px; }
+  .m-copilot { margin: 16px; }
+  .mx-copilot { margin-left: 16px; margin-right: 16px; }
+  .my-copilot { margin-top: 16px; margin-bottom: 16px; }
+
+  /* Container */
+  .container-copilot { max-width: 1060px; margin-left: auto; margin-right: auto; }
+
+  /* Text colors */
+  .text-copilot-primary { color: var(--foreground); }
+  .text-copilot-muted { color: var(--muted-foreground); }
+  .text-copilot-accent { color: var(--primary); }
+  .text-copilot-warning { color: var(--warning); }
+  .text-copilot-danger { color: var(--destructive); }
+  .text-copilot-success { color: var(--success); }
+
+  /* Border */
+  .border-copilot { border-color: var(--border); }
+  .border-copilot-accent { border-color: var(--primary); }
+
+  /* Background */
+  .bg-copilot-surface { background-color: var(--surface); }
+  .bg-copilot-muted { background-color: var(--secondary); }
+  .bg-copilot-accent { background-color: var(--primary); }
+
+  /* Radius */
+  .rounded-copilot { border-radius: 8px; }
+  .rounded-copilot-pill { border-radius: 9999px; }
+
+  /* Elevation - flat, no shadows */
+  .elevation-0 { background: #000000; }
+  .elevation-1 { background: #1c2437; border: 1px solid #3b3b3b; }
+  .elevation-2 { background: #1c2437; border: 1px solid #3b3b3b; }
+  .elevation-3 { background: #1c2437; border: 1px solid #3b3b3b; }
+}
+
+/* ─── Animations ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  @keyframes scroll-fade {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes bounce-in {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-scroll-fade { animation: scroll-fade 1s ease-out forwards; }
+  .animate-bounce-in { animation: bounce-in 0.5s cubic-bezier(0.06, 0.17, 0.36, 1.26); }
+  .animate-shimmer { animation: shimmer 2s infinite; }
+  .animate-fade-in { animation: fade-in 0.3s ease-out; }
+
+  .transition-copilot {
+    transition: all 150ms cubic-bezier(0.06, 0.17, 0.36, 1.26);
+  }
+}
+
+/* ─── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* headings already UI-sized — no override needed on mobile */
+}
+
+/* ─── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── copilot-* Utility Aliases ────────────────────────────────────────────
+   These map every copilot-prefixed Tailwind utility used in pages/components
+   to the equivalent real CSS, so no file-by-file rename is needed.
+   ─────────────────────────────────────────────────────────────────────────── */
+@layer utilities {
+
+  /* ── Display & Flexbox ── */
+  .copilot-flex               { display: flex; }
+  .copilot-inline-flex        { display: inline-flex; }
+  .copilot-grid               { display: grid; }
+  .copilot-hidden             { display: none; }
+  .copilot-block              { display: block; }
+
+  .copilot-flex-col           { flex-direction: column; }
+  .copilot-flex-row           { flex-direction: row; }
+  .copilot-flex-col-reverse   { flex-direction: column-reverse; }
+  .copilot-flex-1             { flex: 1 1 0%; }
+  .copilot-flex-wrap          { flex-wrap: wrap; }
+  .copilot-shrink-0           { flex-shrink: 0; }
+  .copilot-flex-none          { flex: none; }
+
+  .copilot-items-center       { align-items: center; }
+  .copilot-items-start        { align-items: flex-start; }
+  .copilot-items-end          { align-items: flex-end; }
+  .copilot-justify-between    { justify-content: space-between; }
+  .copilot-justify-center     { justify-content: center; }
+  .copilot-justify-end        { justify-content: flex-end; }
+  .copilot-justify-start      { justify-content: flex-start; }
+
+  .copilot-gap-1              { gap: 4px; }
+  .copilot-gap-2              { gap: 8px; }
+  .copilot-gap-3              { gap: 12px; }
+  .copilot-gap-4              { gap: 16px; }
+  .copilot-gap-6              { gap: 24px; }
+  .copilot-gap-8              { gap: 32px; }
+  .copilot-gap-0\.5           { gap: 2px; }
+
+  /* ── Grid columns ── */
+  .copilot-grid-cols-1        { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .copilot-grid-cols-2        { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .copilot-grid-cols-3        { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .copilot-grid-cols-4        { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .copilot-col-span-2         { grid-column: span 2 / span 2; }
+
+  /* ── Min/Max sizing ── */
+  .copilot-min-h-screen       { min-height: 100vh; }
+  .copilot-min-h-svh          { min-height: 100svh; }
+  .copilot-min-w-0            { min-width: 0; }
+  .copilot-w-full             { width: 100%; }
+  .copilot-h-full             { height: 100%; }
+  .copilot-w-auto             { width: auto; }
+
+  /* ── Specific sizes ── */
+  .copilot-h-2                { height: 8px; }
+  .copilot-h-3                { height: 12px; }
+  .copilot-h-4                { height: 16px; }
+  .copilot-h-5                { height: 20px; }
+  .copilot-h-6                { height: 24px; }
+  .copilot-h-8                { height: 32px; }
+  .copilot-h-9                { height: 36px; }
+  .copilot-h-10               { height: 40px; }
+  .copilot-h-12               { height: 48px; }
+  .copilot-h-14               { height: 56px; }
+  .copilot-w-2                { width: 8px; }
+  .copilot-w-3                { width: 12px; }
+  .copilot-w-4                { width: 16px; }
+  .copilot-w-5                { width: 20px; }
+  .copilot-w-6                { width: 24px; }
+  .copilot-w-7                { width: 28px; }
+  .copilot-w-8                { width: 32px; }
+  .copilot-w-10               { width: 40px; }
+  .copilot-w-12               { width: 48px; }
+  .copilot-w-40               { width: 160px; }
+  .copilot-w-48               { width: 192px; }
+  .copilot-h-0\.5             { height: 2px; }
+  .copilot-w-0\.5             { width: 2px; }
+  .copilot-size-4             { width: 16px; height: 16px; }
+
+  /* ── Padding ── */
+  .copilot-p-0                { padding: 0; }
+  .copilot-p-1                { padding: 4px; }
+  .copilot-p-2                { padding: 8px; }
+  .copilot-p-3                { padding: 12px; }
+  .copilot-p-4                { padding: 16px; }
+  .copilot-p-6                { padding: 24px; }
+  .copilot-px-2               { padding-left: 8px; padding-right: 8px; }
+  .copilot-px-3               { padding-left: 12px; padding-right: 12px; }
+  .copilot-px-4               { padding-left: 16px; padding-right: 16px; }
+  .copilot-py-1               { padding-top: 4px; padding-bottom: 4px; }
+  .copilot-py-2               { padding-top: 8px; padding-bottom: 8px; }
+  .copilot-py-4               { padding-top: 16px; padding-bottom: 16px; }
+  .copilot-py-6               { padding-top: 24px; padding-bottom: 24px; }
+  .copilot-py-8               { padding-top: 32px; padding-bottom: 32px; }
+  .copilot-py-12              { padding-top: 48px; padding-bottom: 48px; }
+  .copilot-pt-0               { padding-top: 0; }
+  .copilot-pt-2               { padding-top: 8px; }
+  .copilot-pb-2               { padding-bottom: 8px; }
+  .copilot-pb-4               { padding-bottom: 16px; }
+  .copilot-pl-10              { padding-left: 40px; }
+  .copilot-pr-4               { padding-right: 16px; }
+
+  /* ── Margin ── */
+  .copilot-m-0                { margin: 0; }
+  .copilot-mb-1               { margin-bottom: 4px; }
+  .copilot-mb-2               { margin-bottom: 8px; }
+  .copilot-mb-4               { margin-bottom: 16px; }
+  .copilot-mb-6               { margin-bottom: 24px; }
+  .copilot-mt-1               { margin-top: 4px; }
+  .copilot-mt-2               { margin-top: 8px; }
+  .copilot-mt-3               { margin-top: 12px; }
+  .copilot-mt-4               { margin-top: 16px; }
+  .copilot-mr-1               { margin-right: 4px; }
+  .copilot-mr-2               { margin-right: 8px; }
+  .copilot-ml-4               { margin-left: 16px; }
+  .copilot-mx-auto            { margin-left: auto; margin-right: auto; }
+  .copilot-0\.5               { margin: 2px; }
+  .copilot-mr-0\.5            { margin-right: 2px; }
+
+  /* ── Typography ── */
+  .copilot-text-xs            { font-size: 0.75rem; line-height: 1rem; }
+  .copilot-text-sm            { font-size: 0.875rem; line-height: 1.25rem; }
+  .copilot-text-base          { font-size: 1rem; line-height: 1.5rem; }
+  .copilot-text-lg            { font-size: 1.125rem; line-height: 1.75rem; }
+  .copilot-text-xl            { font-size: 1.25rem; line-height: 1.75rem; }
+  .copilot-text-2xl           { font-size: 1.5rem; line-height: 2rem; }
+  .copilot-text-4xl           { font-size: 2.25rem; line-height: 2.5rem; }
+
+  /* type-scale aliases */
+  .copilot-text-heading-1     { font-size: 2.25rem; line-height: 1.2; }
+  .copilot-text-heading-2     { font-size: 2rem;    line-height: 1.2; }
+  .copilot-text-heading-3     { font-size: 1.75rem; line-height: 1.2; }
+  .copilot-text-heading-4     { font-size: 1.5rem;  line-height: 1.2; }
+  .copilot-text-heading-5     { font-size: 1.25rem; line-height: 1.2; }
+  .copilot-text-heading-6     { font-size: 1rem;    line-height: 1.2; }
+
+  .copilot-font-heading        { font-family: "GintoNord", sans-serif; }
+  .copilot-font-body           { font-family: "GintoNord", sans-serif; }
+  .copilot-font-mono           { font-family: "CascadiaCode", monospace; }
+  .copilot-font-medium         { font-weight: 500; }
+  .copilot-font-semibold       { font-weight: 600; }
+  .copilot-font-bold           { font-weight: 700; }
+  .copilot-font-normal         { font-weight: 400; }
+  .copilot-leading-none        { line-height: 1; }
+  .copilot-tracking-wider      { letter-spacing: 0.05em; }
+  .copilot-uppercase           { text-transform: uppercase; }
+  .copilot-truncate            { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* text color aliases */
+  .copilot-text-muted          { color: var(--muted-foreground); }
+  .copilot-text-foreground     { color: var(--foreground); }
+  .copilot-text-destructive    { color: var(--destructive); }
+  .copilot-text-warning        { color: var(--warning); }
+  .copilot-text-success        { color: var(--success); }
+  .copilot-text-primary        { color: var(--primary); }
+
+  /* ── Borders ── */
+  .copilot-border              { border-width: 1px; border-style: solid; }
+  .copilot-border-t            { border-top-width: 1px; border-top-style: solid; }
+  .copilot-border-b            { border-bottom-width: 1px; border-bottom-style: solid; }
+  .copilot-border-l            { border-left-width: 1px; border-left-style: solid; }
+  .copilot-border-l-4          { border-left-width: 4px; border-left-style: solid; }
+  .copilot-border-border       { border-color: var(--border); }
+  .copilot-border-destructive\/20 { border-color: color-mix(in srgb, var(--destructive) 20%, transparent); }
+  .copilot-border-warning\/20  { border-color: color-mix(in srgb, var(--warning) 20%, transparent); }
+  .copilot-border-success\/20  { border-color: color-mix(in srgb, var(--success) 20%, transparent); }
+  .copilot-border-primary\/20  { border-color: color-mix(in srgb, var(--primary) 20%, transparent); }
+
+  /* border-left color */
+  .copilot-border-l-warning    { border-left-color: #f3c357; }
+  .copilot-border-l-destructive{ border-left-color: #ac1922; }
+  .copilot-border-l-success    { border-left-color: #6cc57b; }
+
+  /* ── Backgrounds ── */
+  .copilot-bg-background       { background-color: var(--background); }
+  .copilot-bg-surface          { background-color: var(--surface); }
+  .copilot-bg-muted            { background-color: var(--secondary); }
+  .copilot-bg-primary          { background-color: var(--primary); }
+  .copilot-bg-destructive      { background-color: var(--destructive); }
+  .copilot-bg-success          { background-color: var(--success); }
+  .copilot-bg-warning          { background-color: var(--warning); }
+  .copilot-bg-border           { background-color: var(--border); }
+
+  /* opacity variants */
+  .copilot-bg-destructive\/5   { background-color: rgba(172,25,34,0.05); }
+  .copilot-bg-destructive\/10  { background-color: rgba(172,25,34,0.10); }
+  .copilot-bg-warning\/10      { background-color: rgba(243,195,87,0.10); }
+  .copilot-bg-success\/10      { background-color: rgba(1,113,43,0.10); }
+  .copilot-bg-primary\/10      { background-color: rgba(255,180,173,0.10); }
+  .copilot-bg-muted\/40        { background-color: rgba(59,59,59,0.40); }
+
+  /* ── Border radius ── */
+  .copilot-rounded             { border-radius: 4px; }
+  .copilot-rounded-md          { border-radius: 6px; }
+  .copilot-rounded-lg          { border-radius: 8px; }
+  .copilot-rounded-xl          { border-radius: 12px; }
+  .copilot-rounded-full        { border-radius: 9999px; }
+  /* alias used in pages */
+  .copilot-rounded-copilot     { border-radius: 8px; }
+
+  /* ── Positioning & overflow ── */
+  .copilot-relative            { position: relative; }
+  .copilot-absolute            { position: absolute; }
+  .copilot-sticky              { position: sticky; }
+  .copilot-overflow-hidden     { overflow: hidden; }
+  .copilot-overflow-x-auto     { overflow-x: auto; }
+  .copilot-overflow-y-auto     { overflow-y: auto; }
+
+  /* ── Positioning helpers ── */
+  .copilot-top-0               { top: 0; }
+  .copilot-top-1\/2            { top: 50%; }
+  .copilot-left-3              { left: 12px; }
+  .copilot-right-1             { right: 4px; }
+  .copilot-top-1               { top: 4px; }
+  .-copilot-top-1              { top: -4px; }
+  .-copilot-right-1            { right: -4px; }
+  .copilot-inset-0             { inset: 0; }
+
+  /* transform */
+  .-copilot-translate-y-1\/2   { transform: translateY(-50%); }
+  .copilot-translate-y-1\/2    { transform: translateY(50%); }
+  .copilot-transform           { transform: translateX(0); } /* activates transform */
+  .copilot-rotate-180          { transform: rotate(180deg); }
+
+  /* ── Spacing stacks ── */
+  .copilot-space-y-1 > * + *  { margin-top: 4px; }
+  .copilot-space-y-2 > * + *  { margin-top: 8px; }
+  .copilot-space-y-4 > * + *  { margin-top: 16px; }
+  .copilot-space-y-6 > * + *  { margin-top: 24px; }
+  .copilot-space-y-8 > * + *  { margin-top: 32px; }
+  .copilot-space-x-1 > * + *  { margin-left: 4px; }
+  .copilot-space-x-2 > * + *  { margin-left: 8px; }
+  .copilot-space-x-3 > * + *  { margin-left: 12px; }
+
+  /* ── Misc ── */
+  .copilot-cursor-pointer      { cursor: pointer; }
+  .copilot-select-none         { user-select: none; }
+  .copilot-opacity-50          { opacity: 0.5; }
+  .copilot-shadow-none         { box-shadow: none; }
+  .copilot-z-50                { z-index: 50; }
+  .copilot-pointer-events-none { pointer-events: none; }
+  .copilot-text-center         { text-align: center; }
+  .copilot-text-right          { text-align: right; }
+  .copilot-text-left           { text-align: left; }
+  .copilot-whitespace-nowrap   { white-space: nowrap; }
+  .copilot-capitalize          { text-transform: capitalize; }
+
+  /* ── Animations ── */
+  .copilot-animate-spin        { animation: spin 1s linear infinite; }
+  .copilot-duration-150        { transition-duration: 150ms; }
+  .copilot-duration-200        { transition-duration: 200ms; }
+  .copilot-duration-300        { transition-duration: 300ms; }
+  .copilot-ease-copilot        { transition-timing-function: cubic-bezier(0.06, 0.17, 0.36, 1.26); }
+  .copilot-transition-all      { transition-property: all; transition-timing-function: ease; transition-duration: 150ms; }
+
+  /* ── Responsive grid helpers (sm: breakpoint at 512px) ── */
+  @media (min-width: 512px) {
+    .sm\:copilot-flex-row       { flex-direction: row; }
+    .sm\:copilot-grid-cols-2    { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sm\:copilot-grid-cols-3    { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .sm\:copilot-h-16           { height: 64px; }
+    .sm\:copilot-px-4           { padding-left: 16px; padding-right: 16px; }
+    .sm\:copilot-gap-4          { gap: 16px; }
+    .sm\:copilot-p-4            { padding: 16px; }
+    .sm\:copilot-mt-4           { margin-top: 16px; }
+    .sm\:copilot-items-center   { align-items: center; }
+    .sm\:copilot-justify-between{ justify-content: space-between; }
+    .sm\:copilot-w-auto         { width: auto; }
+    .sm\:copilot-max-w-md       { max-width: 28rem; }
+    .sm\:copilot-p-6            { padding: 24px; }
+    .sm\:copilot-gap-0          { gap: 0; }
+  }
+
+  @media (min-width: 768px) {
+    .md\:copilot-grid-cols-2    { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .md\:copilot-grid-cols-3    { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md\:copilot-grid-cols-4    { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 960px) {
+    .lg\:copilot-grid-cols-2    { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lg\:copilot-grid-cols-3    { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .lg\:copilot-grid-cols-4    { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+}
