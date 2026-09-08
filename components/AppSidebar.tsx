@@ -26,6 +26,7 @@ import {
 import { useAuth } from "@/contexts/AuthContext"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { useSidebar } from "@/components/ui/sidebar"
 
 const navSections = [
   {
@@ -70,6 +71,7 @@ const navSections = [
 export function AppSidebar() {
   const pathname = usePathname()
   const { user, logout } = useAuth()
+  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
   const [openSections, setOpenSections] = React.useState<Record<string, boolean>>(
     Object.fromEntries(navSections.map((s) => [s.title, true]))
   )
@@ -81,14 +83,36 @@ export function AppSidebar() {
   const isActive = (url: string) =>
     url === "/" ? pathname === "/" : pathname.startsWith(url)
 
+  const closeMobileSidebar = () => {
+    if (isMobile) setOpenMobile(false)
+  }
+
   return (
-    <aside
-      className="sticky top-0 w-[16rem] min-w-[16rem] h-svh flex flex-col bg-[--sidebar-background] border-r border-[--sidebar-border] font-body self-start"
+    <>
+      {isMobile && openMobile && (
+        <button
+          type="button"
+          aria-label="Cerrar menú"
+          className="fixed inset-0 z-40 bg-black/30 md:hidden"
+          onClick={closeMobileSidebar}
+        />
+      )}
+      <aside
+      className={cn(
+        "fixed inset-y-0 left-0 z-50 flex h-svh flex-col bg-[--sidebar-background] border-r border-[--sidebar-border] font-body transition-[width,transform] duration-200 ease-linear md:sticky md:top-0 md:z-auto md:self-start",
+        isMobile
+          ? (openMobile ? "w-[18rem] translate-x-0" : "w-[18rem] -translate-x-full")
+          : (state === "collapsed" ? "w-[3rem]" : "w-[16rem]")
+      )}
       data-sidebar="sidebar"
+      data-state={state}
     >
       {/* Logo / Brand */}
       <div
-        className="flex items-center gap-3 p-4 border-b border-[--sidebar-border]"
+        className={cn(
+          "flex items-center gap-3 border-b border-[--sidebar-border] p-4",
+          state === "collapsed" && !isMobile ? "justify-center px-1" : ""
+        )}
         data-sidebar="header"
       >
         <div
@@ -96,13 +120,16 @@ export function AppSidebar() {
         >
           <Package size={16} color="#000000" />
         </div>
-        <span className="font-heading text-heading-6 font-semibold tracking-tight text-[--sidebar-foreground]">
+        <span className={cn(
+          "font-heading text-heading-6 font-semibold tracking-tight text-[--sidebar-foreground]",
+          state === "collapsed" && !isMobile ? "sr-only" : ""
+        )}>
           Inventario
         </span>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-2 overflow-y-auto" data-sidebar="content">
+      <nav className="flex-1 overflow-y-auto p-2" data-sidebar="content">
         {navSections.map((section) => (
           <div key={section.title} className="mb-1" data-sidebar="group">
             {/* Section header */}
@@ -113,9 +140,9 @@ export function AppSidebar() {
             >
               <span className="flex items-center gap-2">
                 <section.icon size={12} />
-                {section.title}
+                <span className={state === "collapsed" && !isMobile ? "sr-only" : ""}>{section.title}</span>
               </span>
-              {openSections[section.title] ? (
+              {openSections[section.title] && (state !== "collapsed" || isMobile) ? (
                 <ChevronDown size={12} />
               ) : (
                 <ChevronRight size={12} />
@@ -131,6 +158,7 @@ export function AppSidebar() {
                     <Link
                       key={item.title}
                       href={item.url}
+                      onClick={closeMobileSidebar}
                       className={cn(
                         "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors",
                         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
@@ -143,7 +171,7 @@ export function AppSidebar() {
                       data-active={active}
                     >
                       <item.icon size={14} />
-                      {item.title}
+                      <span className={state === "collapsed" && !isMobile ? "sr-only" : ""}>{item.title}</span>
                     </Link>
                   )
                 })}
@@ -156,7 +184,7 @@ export function AppSidebar() {
       {/* User footer */}
       {user && (
         <div
-          className="p-2 border-t border-[--sidebar-border]"
+          className="border-t border-[--sidebar-border] p-2"
           data-sidebar="footer"
         >
           {/* User info */}
@@ -164,7 +192,7 @@ export function AppSidebar() {
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[--primary] text-[--primary-foreground] font-bold text-sm">
               {user.name.charAt(0).toUpperCase()}
             </div>
-            <div className="min-w-0 flex-1">
+            <div className={cn("min-w-0 flex-1", state === "collapsed" && !isMobile ? "sr-only" : "")}>
               <div className="text-sm font-medium text-[--sidebar-foreground] truncate">
                 {user.name}
               </div>
@@ -176,15 +204,16 @@ export function AppSidebar() {
 
           {/* Logout */}
           <button
-            onClick={logout}
-            className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-[--destructive] transition-colors hover:bg-[--sidebar-accent] hover:text-[--destructive]"
+            className="flex w-full items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-[--destructive] transition-colors hover:bg-[--sidebar-accent] hover:text-[--destructive]"
             data-sidebar="menu-button"
+            onClick={() => { logout(); closeMobileSidebar() }}
           >
             <LogOut size={14} />
-            Cerrar Sesión
+            <span className={state === "collapsed" && !isMobile ? "sr-only" : ""}>Cerrar Sesión</span>
           </button>
         </div>
       )}
-    </aside>
+      </aside>
+    </>
   )
 }

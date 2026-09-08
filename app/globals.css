@@ -184,6 +184,15 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--background);
     color: var(--foreground);
+    overflow-x: hidden;
+  }
+
+  img, svg, video, canvas {
+    max-width: 100%;
+  }
+
+  button, input, textarea, select {
+    max-width: 100%;
   }
 
   /* Headings use GintoNord for the project-wide Ginto hierarchy. */

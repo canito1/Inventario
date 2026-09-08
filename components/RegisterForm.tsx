@@ -13,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { authService } from '@/lib/auth'
-import { Logo } from '@/components/Logo'
 import Link from 'next/link'
 
 export function RegisterForm() {
@@ -43,9 +42,6 @@ export function RegisterForm() {
     return (
         <div className="copilot-flex copilot-min-h-screen copilot-w-full copilot-items-center copilot-justify-center copilot-p-4 sm:copilot-p-6 copilot-bg-background">
             <div className="copilot-w-full copilot-max-w-sm">
-                <div className="copilot-flex copilot-justify-center copilot-mb-6">
-                    <Logo size="lg" />
-                </div>
                 <Card className="copilot-bg-muted copilot-border copilot-border-border copilot-rounded-copilot">
                     <CardHeader className="copilot-space-y-1">
                         <CardTitle className="copilot-font-heading copilot-text-heading-5 copilot-font-semibold copilot-leading-none copilot-m-0">Crear Cuenta</CardTitle>
