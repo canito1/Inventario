@@ -151,17 +151,17 @@ export default function Dashboard() {
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-svh bg-background font-sans text-foreground">
+      <div className="flex min-h-svh w-full max-w-none bg-background font-sans text-foreground">
       {/* Sidebar */}
       <AppSidebar />
 
       {/* Main column — flex-1 fills space after the sidebar */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex w-full min-w-0 flex-1 flex-col">
         {/* Header */}
         <DashboardHeader title="Dashboard" subtitle="Resumen del inventario" />
 
         {/* Page content */}
-        <main className="flex-1 p-4 overflow-y-auto space-y-6">
+        <main className="w-full flex-1 space-y-6 overflow-y-auto p-4">
 
           {/* Stats grid */}
           <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">

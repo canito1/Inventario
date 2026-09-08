@@ -24,7 +24,7 @@ export default function DashboardHeader({
         "shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_1px_3px_0_rgba(0,0,0,0.15)]"
       )}
     >
-      <div className="flex h-14 items-center justify-between gap-4 px-4 max-w-full">
+      <div className="flex h-14 w-full items-center justify-between gap-4 px-4">
         {/* Left — title */}
         <div className="min-w-0 flex-none">
           <h1 className="font-heading text-heading-6 font-semibold leading-none tracking-tight text-[--foreground] truncate">
