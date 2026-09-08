@@ -13,6 +13,7 @@ import { ProductDetailsDialog } from '@/components/ProductDetailsDialog'
 import { useAuth } from '@/contexts/AuthContext'
 import { Item, itemsService } from '@/lib/items'
 import { cn } from '@/lib/utils'
+import { SidebarProvider } from '@/components/ui/sidebar'
 
 export default function Dashboard() {
   const { user, loading: authLoading } = useAuth()
@@ -149,7 +150,8 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="flex min-h-svh bg-background font-sans text-foreground">
+    <SidebarProvider>
+      <div className="flex min-h-svh bg-background font-sans text-foreground">
       {/* Sidebar */}
       <AppSidebar />
 
@@ -239,6 +241,7 @@ export default function Dashboard() {
         onOpenChange={setDetailsDialogOpen}
         product={productToView}
       />
-    </div>
+      </div>
+    </SidebarProvider>
   )
 }

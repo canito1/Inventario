@@ -40,8 +40,8 @@ export function RegisterForm() {
     }
 
     return (
-        <div className="copilot-flex copilot-min-h-screen copilot-w-full copilot-items-center copilot-justify-center copilot-p-4 sm:copilot-p-6 copilot-bg-background">
-            <div className="copilot-w-full copilot-max-w-sm">
+        <main className="flex min-h-svh w-full items-center justify-center bg-background px-4 py-6 sm:px-6 sm:py-8">
+            <div className="w-full max-w-sm mx-auto">
                 <Card className="copilot-bg-muted copilot-border copilot-border-border copilot-rounded-copilot">
                     <CardHeader className="copilot-space-y-1">
                         <CardTitle className="copilot-font-heading copilot-text-heading-5 copilot-font-semibold copilot-leading-none copilot-m-0">Crear Cuenta</CardTitle>
@@ -103,6 +103,6 @@ export function RegisterForm() {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+        </main>
     )
 }

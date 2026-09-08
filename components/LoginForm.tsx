@@ -35,8 +35,8 @@ export function LoginForm() {
   }
 
   return (
-    <div className="copilot-flex copilot-min-h-screen copilot-items-center copilot-justify-center copilot-p-4 sm:copilot-p-6 copilot-bg-background">
-      <div className="copilot-w-full copilot-max-w-sm">
+    <main className="flex min-h-svh w-full items-center justify-center bg-background px-4 py-6 sm:px-6 sm:py-8">
+      <div className="w-full max-w-sm mx-auto">
         {/* Brand mark */}
         <div className="copilot-text-center copilot-mb-8">
           <div className="copilot-inline-flex copilot-items-center copilot-justify-center copilot-w-12 copilot-h-12 copilot-rounded-full copilot-bg-primary copilot-border copilot-border-foreground copilot-mb-4 copilot-mx-auto">
@@ -154,6 +154,6 @@ export function LoginForm() {
           </Link>
         </p>
       </div>
-    </div>
+    </main>
   )
 }
