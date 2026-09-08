@@ -66,9 +66,21 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
 export const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  // Find user and include password
   const user = await User.findOne({ email, isActive: true }).select('+password');
-  
+
+  console.log('🔍 DEBUG - email recibido:', JSON.stringify(email));
+  console.log('🔍 DEBUG - usuario encontrado:', !!user);
+  console.log('🔍 DEBUG - password hash existe:', !!user?.password);
+  if (user?.password) {
+    console.log('🔍 DEBUG - hash guardado:', user.password);
+    console.log('🔍 DEBUG - longitud del hash:', user.password.length);
+  }
+
+  if (user) {
+    const isMatch = await user.comparePassword(password);
+    console.log('🔍 DEBUG - password coincide:', isMatch);
+  }
+
   if (!user || !(await user.comparePassword(password))) {
     res.status(401).json({
       success: false,
@@ -77,7 +89,6 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
 
-  // Generate token
   if (!user._id) {
     res.status(500).json({
       success: false,
