@@ -31,7 +31,7 @@ export default function DashboardHeader({
           <SidebarTrigger
             aria-label="Abrir menú de navegación"
             title="Abrir menú"
-            className="shrink-0 sm:hidden"
+            className="shrink-0"
           />
           <div className="min-w-0">
             <h1 className="truncate font-heading text-heading-6 font-semibold leading-none tracking-tight text-[--foreground]">
