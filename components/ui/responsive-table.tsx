@@ -228,29 +228,34 @@ export function MobileCardHeader({
   icon
 }: MobileCardHeaderProps) {
   return (
-    <div className="flex items-start justify-between mb-3 copilot-gap-3">
-      <div className="flex items-start space-x-3 flex-1 min-w-0">
+    <div className="mb-3 flex items-start justify-between gap-3">
+      <div className="flex min-w-0 flex-1 items-start gap-3">
         {icon && (
-          <div className="flex-shrink-0 mt-0.5">
+          <div className="mt-0.5 shrink-0">
             {icon}
           </div>
         )}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center space-x-2 mb-1">
-            <h3 className="font-medium text-sm truncate text-[--foreground]" title={typeof title === 'string' ? title : ''}>
+        <div className="min-w-0 flex-1">
+          <h3
+            className="break-words text-sm font-medium leading-5 text-[--foreground] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
+            title={typeof title === 'string' ? title : ''}
+          >
               {title}
-            </h3>
-            {badge}
-          </div>
+          </h3>
+          {badge && (
+            <div className="mt-1 flex max-w-full flex-wrap items-center gap-1">
+              {badge}
+            </div>
+          )}
           {subtitle && (
-            <p className="text-xs text-[--muted-foreground] truncate" title={typeof subtitle === 'string' ? subtitle : ''}>
+            <p className="mt-1 break-words text-xs leading-4 text-[--muted-foreground] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden" title={typeof subtitle === 'string' ? subtitle : ''}>
               {subtitle}
             </p>
           )}
         </div>
       </div>
       {actions && (
-        <div className="flex-shrink-0 ml-2">
+        <div className="ml-1 shrink-0">
           {actions}
         </div>
       )}

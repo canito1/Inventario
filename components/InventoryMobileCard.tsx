@@ -44,7 +44,7 @@ export function InventoryMobileCard({
   const getStatusBadge = () => {
     const statusConfig = {
       active:       { label: 'Activo',        icon: '✅', className: "bg-[#01712b]/10 text-[#6cc57b] border-[#01712b]/20" },
-      inactive:     { label: 'Inactivo',      icon: '⏸️', className: "bg-[#3b3b3b]/40 text-[#9da8d9] border-[#3b3b3b]" },
+      inactive:     { label: 'Inactivo',      icon: '⏸️', className: "bg-muted text-muted-foreground border-border" },
       discontinued: { label: 'Descontinuado', icon: '🚫', className: "bg-[#ac1922]/10 text-[#ac1922] border-[#ac1922]/20" },
     }
     const config = statusConfig[item.status] || statusConfig.active
