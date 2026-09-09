@@ -4,6 +4,7 @@ import { Bell, Search } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { cn } from '@/lib/utils'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 
 interface DashboardHeaderProps {
   title?: string
@@ -26,13 +27,20 @@ export default function DashboardHeader({
     >
       <div className="flex h-14 w-full items-center justify-between gap-4 px-4">
         {/* Left — title */}
-        <div className="min-w-0 flex-none">
+        <div className="flex min-w-0 flex-1 items-center gap-2">
+          <SidebarTrigger
+            aria-label="Abrir menú de navegación"
+            title="Abrir menú"
+            className="shrink-0"
+          />
+          <div className="min-w-0 flex-none">
           <h1 className="font-heading text-heading-6 font-semibold leading-none tracking-tight text-[--foreground] truncate">
             {title}
           </h1>
           {subtitle && (
             <p className="text-xs text-[--muted-foreground]">{subtitle}</p>
           )}
+          </div>
         </div>
 
         {/* Center — search */}

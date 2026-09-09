@@ -93,13 +93,13 @@ export function AppSidebar() {
         <button
           type="button"
           aria-label="Cerrar menú"
-          className="fixed inset-0 z-40 bg-black/30 md:hidden"
+          className="fixed inset-0 z-[60] bg-black/30 md:hidden"
           onClick={closeMobileSidebar}
         />
       )}
       <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-50 flex h-svh flex-col bg-[--sidebar-background] border-r border-[--sidebar-border] font-body transition-[width,transform] duration-200 ease-linear md:sticky md:top-0 md:z-auto md:self-start",
+        "fixed inset-y-0 left-0 z-[70] flex h-svh flex-col bg-[--sidebar-background] border-r border-[--sidebar-border] font-body transition-transform duration-200 ease-linear md:sticky md:top-0 md:z-auto md:self-start",
         isMobile
           ? (openMobile ? "w-[18rem] translate-x-0" : "w-[18rem] -translate-x-full")
           : (state === "collapsed" ? "w-[3rem]" : "w-[16rem]")
