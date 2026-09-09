@@ -28,7 +28,7 @@ export function ProductDetailsDialog({ open, onOpenChange, product }: ProductDet
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="copilot-w-[95vw] copilot-max-w-[500px] copilot-max-h-[90vh] copilot-overflow-y-auto copilot-p-4 sm:copilot-p-6">
+      <DialogContent className="w-[calc(100vw-1rem)] max-w-[500px] max-h-[calc(100svh-1rem)] overflow-y-auto p-4 sm:w-[95vw] sm:max-h-[90vh] sm:p-6">
         <DialogHeader>
           <DialogTitle className="copilot-flex copilot-items-center copilot-gap-2 copilot-font-heading copilot-text-heading-5 copilot-font-semibold copilot-leading-none copilot-m-0">
             <Package className="copilot-h-4 copilot-w-4 sm:copilot-h-5 sm:copilot-w-5" />
@@ -41,10 +41,11 @@ export function ProductDetailsDialog({ open, onOpenChange, product }: ProductDet
 
         <div className="copilot-space-y-4">
           {/* Status and Category */}
-          <div className="copilot-flex copilot-items-center copilot-justify-between">
+          <div className="flex flex-wrap items-start gap-2">
             <Badge
               variant="outline"
               className={cn(
+                'max-w-full whitespace-normal text-left',
                 product.status === 'active'
                   ? 'copilot-bg-success/10 text-success copilot-border-success/20 hover:copilot-bg-success/20'
                   : product.status === 'inactive'
@@ -57,7 +58,7 @@ export function ProductDetailsDialog({ open, onOpenChange, product }: ProductDet
             </Badge>
             <Badge
               variant="outline"
-              className="copilot-bg-muted copilot-border-border"
+              className="max-w-full whitespace-normal text-left copilot-bg-muted copilot-border-border"
             >
               📂 {product.category.name}
             </Badge>
@@ -158,13 +159,13 @@ export function ProductDetailsDialog({ open, onOpenChange, product }: ProductDet
 
           {/* Dates */}
           <div className="copilot-grid copilot-grid-cols-1 sm:copilot-grid-cols-2 copilot-gap-2 sm:copilot-gap-4 copilot-text-xs copilot-text-muted">
-            <div className="copilot-flex copilot-items-center copilot-gap-1">
+            <div className="flex min-w-0 items-start gap-1">
               <Calendar className="copilot-h-3 copilot-w-3" />
-              <span>Creado: {new Date(product.createdAt).toLocaleDateString('es-ES')}</span>
+              <span className="break-words">Creado: {new Date(product.createdAt).toLocaleDateString('es-ES')}</span>
             </div>
-            <div className="copilot-flex copilot-items-center copilot-gap-1">
+            <div className="flex min-w-0 items-start gap-1">
               <Calendar className="copilot-h-3 copilot-w-3" />
-              <span>Actualizado: {new Date(product.updatedAt).toLocaleDateString('es-ES')}</span>
+              <span className="break-words">Actualizado: {new Date(product.updatedAt).toLocaleDateString('es-ES')}</span>
             </div>
           </div>
 

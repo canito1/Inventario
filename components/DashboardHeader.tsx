@@ -25,26 +25,26 @@ export default function DashboardHeader({
         "shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_1px_3px_0_rgba(0,0,0,0.15)]"
       )}
     >
-      <div className="flex h-14 w-full items-center justify-between gap-4 px-4">
+      <div className="grid min-h-14 w-full grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 px-3 py-2 sm:grid-cols-[1fr_minmax(240px,360px)_1fr] sm:gap-6 sm:px-5 sm:py-0">
         {/* Left — title */}
-        <div className="flex min-w-0 flex-1 items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           <SidebarTrigger
             aria-label="Abrir menú de navegación"
             title="Abrir menú"
-            className="shrink-0"
+            className="shrink-0 sm:hidden"
           />
-          <div className="min-w-0 flex-none">
-          <h1 className="font-heading text-heading-6 font-semibold leading-none tracking-tight text-[--foreground] truncate">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="text-xs text-[--muted-foreground]">{subtitle}</p>
-          )}
+          <div className="min-w-0">
+            <h1 className="truncate font-heading text-heading-6 font-semibold leading-none tracking-tight text-[--foreground]">
+              {title}
+            </h1>
+            {subtitle && (
+              <p className="truncate text-xs text-[--muted-foreground]">{subtitle}</p>
+            )}
           </div>
         </div>
 
         {/* Center — search */}
-        <div className="flex-1 max-w-xs flex items-center relative">
+        <div className="relative order-3 col-span-2 flex min-w-0 w-full items-center sm:order-none sm:col-span-1 sm:w-auto">
           <Search
             size={14}
             className="absolute left-3 text-[--muted-foreground] pointer-events-none"
@@ -59,20 +59,17 @@ export default function DashboardHeader({
         </div>
 
         {/* Right — actions */}
-        <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Bell */}
+        <div className="col-start-2 row-start-1 flex shrink-0 items-center justify-self-end gap-1 sm:col-start-3 sm:row-start-1 sm:gap-2">
           <button
             aria-label="Notificaciones"
             className="flex h-8 w-8 items-center justify-center rounded-[8px] border border-transparent bg-transparent text-[--muted-foreground] transition-colors hover:bg-[--sidebar-accent] hover:text-[--foreground] hover:border-[--border]"
           >
             <Bell size={16} />
           </button>
-
-          {/* User avatar */}
           {user && (
             <div
               title={user.name}
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[--primary] border border-[--border] text-[--primary-foreground] font-bold text-sm cursor-pointer select-none"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[--border] bg-[--primary] text-sm font-bold text-[--primary-foreground]"
             >
               {user.name.charAt(0).toUpperCase()}
             </div>

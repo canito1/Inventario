@@ -161,10 +161,10 @@ export default function Dashboard() {
         <DashboardHeader title="Dashboard" subtitle="Resumen del inventario" />
 
         {/* Page content */}
-        <main className="w-full flex-1 space-y-6 overflow-y-auto p-4">
+        <main className="w-full flex-1 space-y-4 overflow-y-auto p-2 sm:space-y-6 sm:p-4">
 
           {/* Stats grid */}
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,160px),1fr))] gap-3 sm:gap-4">
             {statCards.map((card) => (
               <div
                 key={card.label}

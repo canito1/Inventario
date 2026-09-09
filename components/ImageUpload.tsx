@@ -100,12 +100,12 @@ export function ImageUpload({ value, onChange, disabled, className = '' }: Image
                 type="button"
                 variant="outline"
                 size="sm"
-                className="w-full mt-2"
+                className="mt-2 h-auto min-h-9 w-full whitespace-normal px-3 py-2 text-center leading-tight"
                 onClick={handleClick}
                 disabled={isUploading}
               >
-                <Upload className="h-4 w-4 mr-2" />
-                Cambiar imagen
+                <Upload className="mr-2 h-4 w-4 shrink-0" />
+                <span className="break-words">Cambiar imagen</span>
               </Button>
             )}
           </CardContent>
@@ -117,20 +117,20 @@ export function ImageUpload({ value, onChange, disabled, className = '' }: Image
           }`}
           onClick={handleClick}
         >
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex flex-col items-center justify-center text-center">
               <div className="rounded-full bg-muted p-4 mb-4">
                 <ImageIcon className="h-8 w-8 text-muted-foreground" />
               </div>
               <div className="space-y-2">
-                <p className="text-sm font-medium">
+                <p className="text-sm font-medium break-words">
                   {isUploading ? 'Subiendo imagen...' : 'Subir imagen del producto'}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Haz clic para seleccionar una imagen
+                  <span className="break-words">Haz clic para seleccionar una imagen</span>
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  PNG, JPG, JPEG hasta 5MB
+                  <span className="break-words">PNG, JPG, JPEG hasta 5MB</span>
                 </p>
               </div>
             </div>
