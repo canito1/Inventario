@@ -134,6 +134,7 @@ export function InventoryMobileCard({
               <button
                 className="h-8 w-8 flex items-center justify-center rounded-[8px] text-[#9da8d9] hover:bg-[#3b3b3b] hover:text-white transition-colors"
                 aria-label="Abrir menú"
+                onClick={(event) => event.stopPropagation()}
               >
                 <MoreHorizontal className="h-4 w-4" />
               </button>
@@ -145,7 +146,10 @@ export function InventoryMobileCard({
               <DropdownMenuSeparator className="bg-[#3b3b3b]" />
               {onViewDetails && (
                 <DropdownMenuItem
-                  onClick={() => onViewDetails(item)}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    onViewDetails(item)
+                  }}
                   className="text-white hover:bg-[#3b3b3b] focus:bg-[#3b3b3b] cursor-pointer"
                 >
                   <Eye className="mr-2 h-4 w-4" />
@@ -153,7 +157,10 @@ export function InventoryMobileCard({
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
-                onClick={() => copyToClipboard(item._id, "ID")}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  copyToClipboard(item._id, "ID")
+                }}
                 className="text-white hover:bg-[#3b3b3b] focus:bg-[#3b3b3b] cursor-pointer"
               >
                 <Copy className="mr-2 h-4 w-4" />
@@ -161,7 +168,10 @@ export function InventoryMobileCard({
               </DropdownMenuItem>
               {item.barcode && (
                 <DropdownMenuItem
-                  onClick={() => copyToClipboard(item.barcode!, "Código de barras")}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    copyToClipboard(item.barcode!, "Código de barras")
+                  }}
                   className="text-white hover:bg-[#3b3b3b] focus:bg-[#3b3b3b] cursor-pointer"
                 >
                   <Copy className="mr-2 h-4 w-4" />
@@ -248,7 +258,10 @@ export function InventoryMobileCard({
         <MobileCardActions>
           <button
             className="copilot-btn-ghost flex-1 flex items-center justify-center gap-2 text-sm"
-            onClick={() => onViewDetails(item)}
+            onClick={(event) => {
+              event.stopPropagation()
+              onViewDetails(item)
+            }}
           >
             <Eye className="h-4 w-4" />
             Ver detalles

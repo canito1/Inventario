@@ -572,8 +572,6 @@ export default function AdvancedInventoryTable({
               key={item._id}
               item={item}
               onViewDetails={onViewDetails}
-              selected={table.getRow(index.toString())?.getIsSelected()}
-              onSelect={(selected) => table.getRow(index.toString())?.toggleSelected(selected)}
             />
           )}
         />
