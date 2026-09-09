@@ -74,6 +74,38 @@ interface AdvancedInventoryTableProps {
   onViewDetails?: (item: Item) => void
 }
 
+const statusLabels: Record<Item['status'], string> = {
+  active: 'Activo',
+  inactive: 'Inactivo',
+  discontinued: 'Descontinuado',
+}
+
+const columnLabels: Record<string, string> = {
+  name: 'Producto',
+  description: 'Descripción',
+  'category.name': 'Categoría',
+  quantity: 'Stock',
+  minStock: 'Stock mínimo',
+  price: 'Precio',
+  location: 'Ubicación',
+  status: 'Estado',
+}
+
+const inventoryGlobalFilter = (row: any, _columnId: string, filterValue: string) => {
+  const item = row.original as Item
+  const categoryName = typeof item.category === 'string' ? item.category : item.category?.name || ''
+  const searchableText = [
+    item.name,
+    item.description,
+    categoryName,
+    item.location,
+    item.barcode,
+    statusLabels[item.status],
+  ].join(' ').toLowerCase()
+
+  return searchableText.includes(String(filterValue).toLowerCase().trim())
+}
+
 export default function AdvancedInventoryTable({
   data: externalData,
   loading: externalLoading,
@@ -231,13 +263,9 @@ export default function AdvancedInventoryTable({
         const category = row.original.category
         const categoryName = typeof category === 'string' ? category : category.name
         return (
-          <Badge
-            variant="outline"
-            className="bg-primary/10 text-primary border-primary/20 text-xs"
-          >
-            <span className="hidden sm:inline">📂 </span>
+          <span className="text-sm text-foreground">
             {categoryName}
-          </Badge>
+          </span>
         )
       },
     },
@@ -306,7 +334,7 @@ export default function AdvancedInventoryTable({
       accessorKey: "location",
       header: "Ubicación",
       cell: ({ row }) => (
-        <span className="text-xs bg-muted border border-border px-2 py-1 rounded-[8px] text-muted-foreground">
+        <span className="text-sm text-foreground">
           {row.getValue("location")}
         </span>
       ),
@@ -322,12 +350,7 @@ export default function AdvancedInventoryTable({
           discontinued: { label: 'Descontinuado', icon: '🚫', className: "bg-destructive/10 text-destructive border-destructive/20" },
         }
         const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.active
-        return (
-          <Badge variant="outline" className={`text-xs ${config.className}`}>
-            <span className="mr-1">{config.icon}</span>
-            <span className="hidden xs:inline">{config.label}</span>
-          </Badge>
-        )
+        return <span className={`text-sm font-medium ${config.className.includes('destructive') ? 'text-destructive' : config.className.includes('success') ? 'text-success' : 'text-muted-foreground'}`}>{config.label}</span>
       },
     },
     {
@@ -380,7 +403,7 @@ export default function AdvancedInventoryTable({
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: "includesString",
+    globalFilterFn: inventoryGlobalFilter,
     state: {
       sorting,
       columnFilters,
@@ -512,7 +535,7 @@ export default function AdvancedInventoryTable({
                         checked={col.getIsVisible()}
                         onCheckedChange={(value) => col.toggleVisibility(!!value)}
                       >
-                        {col.id}
+                        {columnLabels[col.id] || col.id}
                       </DropdownMenuCheckboxItem>
                     ))}
                 </DropdownMenuContent>

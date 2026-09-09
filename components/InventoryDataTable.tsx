@@ -46,6 +46,37 @@ import { cn } from "@/lib/utils"
 
 export type ItemRow = Item
 
+const statusLabels: Record<Item['status'], string> = {
+  active: 'Activo',
+  inactive: 'Inactivo',
+  discontinued: 'Descontinuado',
+}
+
+const columnLabels: Record<string, string> = {
+  name: 'Producto',
+  description: 'Descripción',
+  category: 'Categoría',
+  quantity: 'Stock',
+  price: 'Precio',
+  location: 'Ubicación',
+  status: 'Estado',
+}
+
+const inventoryGlobalFilter = (row: any, _columnId: string, filterValue: string) => {
+  const item = row.original as Item
+  const categoryName = typeof item.category === 'string' ? item.category : item.category?.name || ''
+  const searchableText = [
+    item.name,
+    item.description,
+    categoryName,
+    item.location,
+    item.barcode,
+    statusLabels[item.status],
+  ].join(' ').toLowerCase()
+
+  return searchableText.includes(String(filterValue).toLowerCase().trim())
+}
+
 interface InventoryDataTableProps {
   data?: Item[]
   loading?: boolean
@@ -192,10 +223,9 @@ export default function InventoryDataTable({
         const category = row.original.category
         const categoryName = typeof category === 'string' ? category : category?.name || 'Sin categoría'
         return (
-          <Badge variant="outline" size="sm" className="copilot-bg-muted copilot-border-border">
-            <span className="hidden sm:inline mr-0.5">📂 </span>
+          <span className="text-sm text-foreground">
             {categoryName}
-          </Badge>
+          </span>
         )
       },
     },
@@ -257,7 +287,7 @@ export default function InventoryDataTable({
       accessorKey: "location",
       header: "Ubicación",
       cell: ({ row }) => (
-        <span className="copilot-text-xs copilot-bg-muted copilot-px-2 copilot-py-1 copilot-rounded-copilot">
+        <span className="text-sm text-foreground">
           {row.getValue("location") || 'N/A'}
         </span>
       ),
@@ -274,12 +304,7 @@ export default function InventoryDataTable({
         }
 
         const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.active
-        return (
-          <Badge variant="outline" size="sm" className={config.className}>
-            <span className="mr-0.5">{config.icon}</span>
-            <span className="hidden xs:inline">{config.label}</span>
-          </Badge>
-        )
+        return <span className={`text-sm font-medium ${config.className.includes('destructive') ? 'text-destructive' : config.className.includes('success') ? 'text-success' : 'text-muted-foreground'}`}>{config.label}</span>
       },
     },
     {
@@ -351,7 +376,7 @@ export default function InventoryDataTable({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    globalFilterFn: "includesString",
+    globalFilterFn: inventoryGlobalFilter,
     state: {
       sorting,
       columnFilters,
@@ -441,7 +466,7 @@ export default function InventoryDataTable({
                             column.toggleVisibility(!!value)
                           }
                         >
-                          {column.id}
+                          {columnLabels[column.id] || column.id}
                         </DropdownMenuCheckboxItem>
                       )
                     })}
